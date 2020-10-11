@@ -45,6 +45,8 @@ class Suggestion extends RichResponse {
   constructor(suggestion) {
     super();
     this.platform = undefined;
+    // VIVACAR
+    this.title = "C'est à vous...";
     this.replies = [];
     if (
       suggestion === undefined ||
@@ -147,6 +149,8 @@ class Suggestion extends RichResponse {
       }
     } else {
       response = {type: v1MessageObjectSuggestions};
+      // VIVACAR
+      if (this.title) response.title = this.title;
       if (this.replies) response.replies = this.replies;
       // Response is the same for generic responses without the platform attribute
       // If the platform is not undefined or the platform is not unspecified
@@ -185,7 +189,9 @@ class Suggestion extends RichResponse {
         response.suggestions.suggestions.push({title: reply});
       });
     } else {
-      response = {quickReplies: {quickReplies: this.replies}};
+      // response = {quickReplies: {quickReplies: this.replies}};
+      // VIVACAR
+      response = {quickReplies: {title: this.title, quickReplies: this.replies}};
       // Response is the same for generic responses without the platform attribute
       // If the platform is not undefined or the platform is not unspecified
       if (SUPPORTED_RICH_MESSAGE_PLATFORMS.indexOf(platform) > -1) {
